@@ -1,0 +1,1739 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+::selection {
+    background-color: #2768C9; /* Колір фону виділеного тексту */
+    color: #fff; /* Колір тексту після виділення (білий) */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background-color: #000;
+}
+
+body, html {
+  overflow-x: hidden; /* Прибирає горизонтальний скролінг */
+  width: 100%;
+}
+
+/* код Хедеру */
+header {
+    background-color: #1a1a1a;
+    height: 80px;
+    width: 100%;
+    border-bottom: 3px solid #2768C9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 5;  
+    transition: transform 0.7s ease, top 0.7s ease;
+}
+
+header.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translateY(0); /* Залишається на екрані */
+}
+
+header.hidden {
+    transform: translateY(-100%); /* Зникає з екрана при скролі */
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+}
+
+.logo-top {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.logo-bottom {
+    font-size: 24px;
+    font-weight: bolder;
+    line-height: 1;
+}
+
+#desktop-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#desktop-menu ul {
+    display: flex;
+}
+
+#desktop-menu ul li {
+    padding: 29px 30px;
+    transition: background-color 0.3s;
+    list-style: none;
+}
+
+#desktop-menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+}
+
+#desktop-menu ul li:hover {
+    background-color: #D9D9D9;
+}
+
+#desktop-menu ul li:hover a {
+    color: #000;
+}
+
+.contact-icons {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 16px; 
+}
+
+.lang {
+    color: #fff;
+    font-size: 16px;
+    margin-left: 16px;
+    padding: 29px 20px;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    z-index: 10;
+}
+  
+.lang:hover {
+    color: #000;
+    background-color: #D9D9D9;
+}
+  
+.lang-list {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background-color: #D9D9D9;
+    border-radius: 5px;
+    list-style: none;
+    padding: 10px 0;
+    margin-top: 0;
+    width: 65px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+    z-index: 20;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+  
+.lang-list li {
+    padding: 5px 20px;
+    transition: background-color 0.3s;
+}
+  
+.lang-list li:hover {
+    background-color: #9b9b9b;
+}
+  
+.lang-list li a {
+    color: #000;
+    text-decoration: none;
+}
+  
+.lang:hover .lang-list {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Ховаємо бургер-меню для десктопів */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 25px;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+/* Початкове сховане меню */
+#mobile-menu {
+    display: none; /* Ховаємо навігацію на мобільних */
+    flex-direction: column;
+    background-color: #1a1a1a;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+    padding: 10px 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+#mobile-menu ul {
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+#mobile-menu ul li {
+    padding: 10px 20px;
+    text-align: center;
+}
+
+#mobile-menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+#mobile-menu ul li:hover {
+    background-color: #2768C9;
+}
+
+/* Анімація бургер-меню */
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(15px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-15px);
+}
+
+#mobile-menu.active {
+    display: flex;
+    transform: translateY(0); /* Плавне опускання */
+    opacity: 1;
+}
+
+.main-section {
+    position: relative; /* Для правильного позиціонування дочірніх елементів */
+    z-index: 0; 
+    height: 544px;
+    display: flex;
+    overflow: hidden; /* Забираємо прокручування */
+    margin: 0;
+    width: 100%;
+}
+
+.main-section.fixed-section {
+    margin-top: 80px; /* Збільшуємо відступ, коли хедер фіксований */
+}
+
+.home-section .background-image {
+    background-image: url('Img/buleza_img (1).png');
+}
+
+.about-section .background-image {
+    background-image: url('Img/buleza_img (7).jpg'); /* Замінити на ваше зображення для сторінки "Про нас" */
+}
+
+.service-section .background-image {
+    background-image: url('Img/buleza_img (4).png'); /* Замінити на ваше зображення для сторінки "Про нас" */
+}
+
+.contact-section .background-image {
+    background-image: url('Img/buleza_img (5).png'); /* Замінити на ваше зображення для сторінки "Про нас" */
+}
+
+.background-image {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 110%;
+    height: 110%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Закріплення фону для паралаксу */
+    filter: brightness(0.4); /* затемнено на 60% */
+    transition: transform 0.1s ease-out; /* Плавний рух фону */
+}
+  
+.content-wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 0 48px;
+    text-align: left; /* вирівнювання вліво */
+}
+  
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    margin-top: 48px;
+}
+  
+.main-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 800px;
+    text-align: left; /* вирівнювання вліво */
+}
+  
+.contact-btn {
+    position: absolute; /* Абсолютне позиціонування кнопки */
+    bottom: 48px; /* Відступ від нижнього краю секції */
+    right: 64px; /* Відступ від правого краю секції */
+    background-color: #F1F1F1;
+    color: #232121;
+    width: 200px; 
+    height: 60px;
+    border-radius: 40px; 
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 18px; 
+    font-weight: bold; 
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+  
+.contact-btn:hover {
+    background-color: #828282; 
+    color: #FFFFFF; 
+}
+
+.big-section {
+    position: relative;
+    width: 100%;
+    height: 532px;
+    background-color: #D9D9D9;
+    z-index: 1;
+}
+
+.header-container {
+    padding-left: 48px; /* Відступ зліва */
+    padding-top: 48px;
+}
+
+/* Синя лінія */
+.blue-line {
+    position: relative;
+    width: 288px; /* Ширина лінії */
+    height: 3px; /* Висота лінії */
+    background-color: #2768C9; /* Колір лінії */
+    top: 12px; /* Лінія на 12px нижче заголовка */
+    z-index: 4;
+}
+
+/* Заголовок */
+.section-title {
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+    font-weight: bold; /* Жирний текст */
+    font-size: 32px; /* Розмір шрифта */
+    color: #000; /* Колір тексту */
+    margin-top: 24px; /* Відступ зверху для заголовка */
+    z-index: 4;
+}
+
+.section-text {
+    font-family: 'Roboto', sans-serif; /* Шрифт Робото */
+    font-size: 16px; /* Розмір шрифта */
+    line-height: 1.5;
+    width: 640px; /* Ширина тексту */
+    margin-top: 64px; /* Відстань від лінії */
+    margin-left: 48px;
+    color: #000; /* Колір тексту */
+    z-index: 4;
+}
+
+/* Відступи між абзацами */
+.section-text p {
+    margin-bottom: 16px; /* Відстань між абзацами */
+}
+
+.big-section--triangle::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 266px 266px 0; /* Верхній і правий край */
+    border-color: transparent white transparent transparent; /* Білий колір трикутника */
+    z-index: -2; /* Впевнитися, що трикутник накладається */
+}
+
+.big-section--triangle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0; /* Відступ для зменшення гіпотенузи */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 250px 250px 0; /* Зменшений синій трикутник */
+    border-color: transparent #2768C9 transparent transparent; /* Колір синього трикутника */
+    z-index: -1; /* Розташування позаду білого трикутника */
+}
+
+.white-box {
+    position: absolute;
+    top: calc(50% - 124px); /* Центрування як у зображення (- половина висоти) */
+    right: -6px; /* Щоб додати по 6px з обох боків */
+    width: 376px; /* Ширина зображення (360px) + 12px */
+    height: 248px; /* Висота зображення (240px) + 8px */
+    background-color: #fff; /* Білий колір */
+    z-index: 3; /* Під зображенням, але поверх трикутників */
+    border-radius: 4px; /* Додатково можна округлити кути */
+}
+
+.triangle-image {
+    position: absolute;
+    top: 50%; /* Центрування по вертикалі */
+    right: 0; /* Вирівнювання по правому краю */
+    transform: translate(0, -50%); /* Центрування з урахуванням розміру зображення */
+    width: 360px;
+    height: 240px;
+    z-index: 4; /* Поверх трикутників */
+}
+
+.truck-image {
+    position: absolute;
+    width: 360px;
+    height: 354px;
+    right: 160px; /* Відстань від правого краю секції */
+    bottom: 64px; /* Розміщення на 48 пікселів нижче */
+    opacity: 0; /* Спочатку приховане */
+    transition: opacity 0.5s ease-out, transform 1s ease-out; /* Анімація появи */
+    transform: translateX(50%); /* Центрування по горизонталі в межах секції */
+}
+
+.truck-image.visible {
+    opacity: 1; /* Відображається */
+    transform: translateX(0); /* Переміщення до початкового положення */
+}
+
+.small-section {
+    width: 100%; /* Покриває всю ширину екрану */
+    height: 120px; /* Висота секції */
+    background-color: #3F3F3F; /* Колір фону */
+    position: relative; /* Для правильного розташування */
+    z-index: 1; /* Щоб секції були над іншими елементами */
+    align-items: center; /* Центрування по вертикалі */
+    padding: 0 48px; /* Відступи зліва і справа */   
+}
+
+.section-2 {
+    justify-content: space-between;
+    display: flex;
+}
+
+.statistic {
+    text-align: center; /* Центрування тексту */
+    opacity: 0; /* Початково приховано */
+    transform: translateY(20px); /* Зсув вниз для початкової позиції */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Плавна анімація */
+}
+
+.statistic.visible {
+    opacity: 1; /* Робимо видимим */
+    transform: translateY(0); /* Зсуваємо до початкового положення */
+}
+
+.statistic-top {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: bold; /* Жирний текст */
+    color: #FFF; /* Білий колір тексту */
+}
+
+.statistic-bottom {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: normal; /* Звичайний текст */
+    color: #FFF; /* Білий колір тексту */
+    margin-top: 4px; /* Невеликий відступ між верхнім і нижнім текстом */
+}
+
+.statistic-left {
+    align-self: flex-start; /* Прив'язка до верхнього краю секції */
+    padding-top: 32px;
+}
+
+.statistic-center {
+    margin: 0 auto; /* Центрування по горизонталі */
+}
+
+.statistic-right {
+    align-self: flex-start; /* Прив'язка до верхнього краю секції */
+    padding-top: 32px;
+}
+
+.statistic-left.visible {
+    transition-delay: 0s;
+}
+
+.statistic-center.visible {
+    transition-delay: 0.2s;
+}
+
+.statistic-right.visible {
+    transition-delay: 0.4s;
+}
+
+.services-container {
+    position: relative;
+    top: 72px; /* Відступ вниз від заголовка */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 144px; /* Відступи з боків */
+    opacity: 0;
+    transform: translateY(20px); /* Зсуваємо контейнер вниз */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.services-container.visible {
+    opacity: 1;
+    transform: translateY(0); /* Повертаємо на місце */
+}
+
+.service-box {
+    width: 320px;
+    height: 280px;
+    border: 2px solid #000; /* Чорна обводка */
+    box-sizing: border-box; /* Враховує обводку в розмірах */
+    background-color: transparent; /* Прозорий фон */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрування по горизонталі */
+    justify-content: flex-start; /* Розміщення елементів в середині контейнера */
+    padding-top: 24px; /* Відступ для розміщення іконки в верхній частині */
+}
+
+/* Шестерня */
+.service-icon {
+    display: block;
+}
+
+.service-box:nth-child(1) .service-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px; /* Відстань між іконкою і текстом */
+}
+
+.service-box:nth-child(2) .service-icon {
+    width: 50px;
+    height: 56px;
+    margin-bottom: 24px;
+}
+
+/* Текст */
+.service-text {
+    font-family: 'Roboto', sans-serif; /* Шрифт Roboto */
+    font-size: 18px;
+    text-align: center; /* Центрування тексту */
+    color: #000; /* Чорний текст */
+    margin-bottom: 24px; /* Відсутність зайвих відступів */
+    padding: 0 8px;
+}
+
+.section-3 {
+    justify-content: center; /* Центрування по горизонталі */
+    display: flex;
+}
+
+.address-container {
+    text-align: center; /* Центрування тексту */
+}
+
+.address-title {
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+    font-weight: bold; /* Жирний текст */
+    font-size: 32px; /* Розмір шрифту */
+    color: #FFF; /* Білий текст */
+    margin-bottom: 12px; /* Відступ між заголовком і текстом */
+}
+
+.address-text {
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+    font-weight: normal; /* Звичайний текст */
+    font-size: 16px; /* Розмір шрифту */
+    color: #FFF; /* Білий текст */
+}
+
+.map-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px; /* Згладжені кути */
+    overflow: hidden; /* Важливо, щоб кути iframe збігались */
+    padding: 32px;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-btn-2 {
+    background-color: #F1F1F1;
+    color: #232121;
+    width: 200px;
+    height: 60px;
+    border-radius: 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    margin: 0; /* Забезпечує, що кнопка не має додаткових зовнішніх відступів */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.contact-btn-2:hover {
+    background-color: #828282;
+    color: #FFFFFF;
+}
+
+.mission-container {
+    text-align: center;
+    padding-top: 24px;
+}
+
+.mission-title {
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+    font-weight: bold; /* Жирний текст */
+    font-size: 32px; /* Розмір шрифту */
+    color: #FFF; /* Білий текст */
+    margin-bottom: 12px; /* Відступ між заголовком і текстом */
+}
+
+.mission-description {
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+    font-weight: normal; /* Звичайний текст */
+    font-size: 16px; /* Розмір шрифту */
+    color: #FFF; /* Білий текст */
+}
+
+.image-container {
+    position: absolute; /* Абсолютне позиціонування для точного розташування */
+    right: -64px; /* Випирає на 64px праворуч */
+    top: 50%; /* Центрування по вертикалі */
+    transform: translateY(-50%);
+    width: 450px;
+    height: 280px;
+}
+
+.blue-rectangle {
+    position: absolute;
+    width: 450px;
+    height: 280px;
+    background-color: #2C5592;
+    top: 24px; /* Зміщення на 24px вниз */
+    left: -16px; /* Зміщення на 16px ліворуч від зображення */
+    z-index: 1; /* Розташування позаду зображення */
+}
+
+.section-image {
+    position: relative;
+    width: 450px;
+    height: 280px;
+    z-index: 2; /* Розташування над прямокутником */
+}
+
+.dual-section {
+    width: 100%; /* Покриває всю ширину екрану */
+    display: flex;
+    flex-direction: column; /* Вирівнювання підблоків вертикально */
+}
+
+/* Темний блок */
+.block-dark {
+    width: 100%; /* Покриває всю ширину */
+    height: 60px; /* Висота 60px */
+    background-color: #3F3F3F; /* Кольоровий фон */
+    display: flex; /* Для центрованого вирівнювання контенту */
+    align-items: center; /* Центрує по вертикалі */
+    justify-content: center; /* Центрує по горизонталі */
+    z-index: 2;
+}
+
+/* Світлий блок */
+.block-light {
+    width: 100%; /* Покриває всю ширину */
+    background-color: #646464; /* Кольоровий фон */
+    display: flex; /* Вирівнювання за допомогою Flexbox */
+    align-items: center; /* Центрування по вертикалі */
+    justify-content: center; /* Центрування всього контейнера */
+}
+
+.values-title {
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+    font-weight: bold; /* Жирний шрифт */
+    font-size: 24px; /* Розмір шрифта */
+    color: #FFFFFF; /* Білий колір тексту */
+    margin: 0; /* Відсутність відступів */
+}
+
+/* Контейнер колонок */
+.columns-container {
+    display: flex; /* Використання Flexbox для колонок */
+    justify-content: space-evenly; /* Рівномірні відступи між колонками */
+    width: calc(100% - 128px); /* Відступи по 64px зліва і справа */
+    max-width: 800px; /* Максимальна ширина для зручності дизайну */
+    margin: 0 auto; /* Центрування контейнера */
+}
+
+/* Колонки */
+.column {
+    display: flex;
+    flex-direction: column; /* Вертикальне вирівнювання іконки та тексту */
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    max-width: 200px;
+    padding: 16px;
+}
+
+/* Іконки */
+.column-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 8px; /* Відступ між іконкою і текстом */
+}
+
+/* Текст */
+.column p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+/* Іконки в початковому стані */
+.animated-icon {
+    opacity: 0; /* Початкова прозорість */
+    transform: translateY(20px); /* Початкове зміщення вниз */
+    transition: opacity 0.6s ease, transform 0.6s ease; /* Анімація */
+}
+
+/* Коли іконка стає видимою */
+.animated-icon.visible {
+    opacity: 1; /* Повна непрозорість */
+    transform: translateY(0); /* Повернення на місце */
+}
+
+/* Загальні стилі залишаються */
+.services-section .block-dark {
+    background-color: #3F3F3F; /* Темний блок */
+}
+
+.services-section .block-light {
+    background-color: #646464; /* Світлий блок */
+}
+
+/* Колонки та іконки */
+.services-section .column-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 8px;
+}
+
+
+.footer {
+    width: 100%; /* На всю ширину екрану */
+    height: 340px; /* Фіксована висота футера */
+    background-color: #F1F1F1; /* Колір фону футера */
+    display: flex; /* Використовується для центрування */
+    align-items: center; 
+    position: relative; /* Для роботи з відступами */
+    flex-direction: column; /* Використовуємо колонковий режим для структури */
+    padding-bottom: 36px; /* Відступ внизу футера */
+}
+
+/* Стилі логотипа у футері */
+.footer-logo {
+    font-family: 'Montserrat', sans-serif; /* Стиль шрифту */
+    color: #232121; /* Колір логотипа */
+    text-align: center; /* Центрування тексту всередині логотипа */
+    margin-top: 24px; /* Відступ зверху */
+    display: flex; /* Для вертикального розташування елементів */
+    flex-direction: column; /* Розташування тексту зверху вниз */
+    gap: 4px; /* Відступ між верхнім і нижнім текстом */
+    align-items: center; /* Центрування тексту в контейнері логотипа */
+}
+
+.footer-logo .logo-top {
+    font-size: 20px; /* Розмір верхнього тексту */
+    font-weight: bold; /* Товщина шрифту */
+    line-height: 1; /* Щільність тексту */
+}
+
+.footer-logo .logo-bottom {
+    font-size: 24px; /* Розмір нижнього тексту */
+    font-weight: bolder; /* Товщина шрифту */
+    line-height: 1; /* Щільність тексту */
+}
+
+/* Контейнери для колонок */
+.footer-columns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px; /* Ширина футера */
+    margin-top: 48px;
+}
+
+/* Стилі для кожної колонки */
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 25%; /* Кожна колонка займає 1/4 частину футера */
+}
+
+/* Навігація */
+.footer-nav-link {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: #232121;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.footer-nav-link:hover {
+    text-decoration: underline;
+}
+
+/* Контакти */
+.contact-header {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: #232121;
+}
+
+.contact-item {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #232121;
+}
+
+.contact-item + .contact-item {
+    margin-top: 12px;
+}
+
+/* Графік роботи */
+.work-hours-header {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: #232121;
+}
+
+.work-hours {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #232121;
+    width: 172px; /* Ширина обмежена для графіку */
+}
+
+/* Адреса */
+.address-header {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: #232121;
+}
+
+.address {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #232121;
+    width: 172px; /* Ширина обмежена для адреси */
+}
+
+.footer-bottom {
+    position: absolute;
+    bottom: 0; /* Фіксація внизу футера */
+    width: 100%; /* Ширина на весь екран */
+    display: flex;
+    flex-direction: column; /* Розташування елементів один під одним */
+    align-items: center; /* Центрування по горизонталі */
+}
+
+/* Чорна лінія */
+.footer-line {
+    width: 100%; /* Лінія на всю ширину футера */
+    height: 1px; /* Товщина лінії */
+    background-color: #000; /* Колір лінії */
+    margin-bottom: 36px; /* Відстань від лінії до нижнього краю футера */
+}
+
+/* Текст "© 2024" */
+.footer-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px; /* Розмір шрифту */
+    color: #232121; /* Колір тексту */
+    font-weight: bold;
+    position: absolute;
+    bottom: 12px; /* Відстань від нижнього краю футера */
+    left: 48px; /* Відстань від лівого краю футера */
+}
+
+/* Мобільне меню за замовчуванням приховане */
+nav.mobile-nav {
+    display: none; /* Ховаємо меню */
+    width: 100%;
+    background-color: #1a1a1a;
+    text-align: center;
+    position: absolute;
+    top: 80px; /* Висота вашого хедера */
+    left: 0;
+    z-index: 5;
+}
+
+/* Форма поверх сторінки */
+.form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+  
+.form-container {
+    background: #D9D9D9;
+    width: 700px; /* Встановлюємо ширину */
+    height: 480px; /* Встановлюємо висоту */
+    padding: 20px 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    flex-direction: column; /* Впорядкування елементів вертикально */
+    justify-content: space-between; /* Розподілення простору між елементами */
+    overflow-y: auto; /* Додаємо вертикальний скролінг */
+    scrollbar-width: thin; /* Тонкий скрол для підтримуваних браузерів */
+}
+  
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+  
+.form-title {
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+    font-weight: bold; /* Жирний текст */
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #232121;
+}
+
+.form-title2 {
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+    font-weight: bold; /* Жирний текст */
+    font-size: 18px; /* Розмір шрифту */
+    color: #232121; /* Колір тексту */
+    margin-bottom: 8px; /* Відступ знизу */
+    display: block; /* Відображення блоку */
+    margin-bottom: 12px; /* Збільшити відступ знизу заголовка "Оберіть тему:" */
+
+}
+  
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+    color: #232121;
+    font-size: 18px;
+}
+  
+form input, 
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border: none; /* Прибираємо всі межі */
+    border-bottom: 2px solid #000; /* Чорна лінія тільки внизу */
+    background: transparent; /* Прибираємо фон */
+    outline: none; /* Прибираємо підсвічування при фокусі */
+    margin-bottom: 20px;
+    border-radius: 4px;
+    font-size: 18px; /* Збільшуємо розмір тексту */
+    font-family: 'Roboto', sans-serif; /* Встановлюємо шрифт Roboto */
+}
+
+/* Стиль при фокусі */
+form input:focus, 
+form textarea:focus {
+  border-bottom: 2px solid #2768C9; /* Змінюємо колір лінії на синій при фокусі */
+}
+  
+form textarea {
+    resize: none;
+    height: 100px; /* Встановлюємо висоту текстового поля */
+
+}
+
+.topic-options {
+    display: flex;
+    justify-content: space-between; /* Розподіл рівномірно */
+    gap: 10px; /* Відступ між контейнерами */
+    margin-bottom: 20px; /* Додати відступ знизу */
+
+}
+  
+.topic-label {
+    flex: 1; /* Кожен контейнер займає однакову ширину */
+    text-align: center;
+    cursor: pointer; /* Вказівник наводиться як на кнопку */
+    border: 2px solid #232121; /* Прямокутна рамка */
+    border-radius: 4px; /* Злегка заокруглені краї */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Анімація зміни кольорів */
+    padding: 10px; /* Внутрішні відступи для тексту */
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #232121;
+    background-color: transparent; /* Початковий прозорий фон */
+    display: flex;
+    align-items: center; /* Вирівнювання тексту вертикально */
+    justify-content: center; /* Вирівнювання тексту горизонтально */
+}
+  
+.topic-label input {
+    display: none; /* Ховаємо стандартний радіобокс */
+}
+  
+/* Змінюємо фон і кольори при виборі */
+.topic-label input:checked + .topic-content {
+    color: #ffffff; /* Білий текст */
+}
+
+/* Зміна фону контейнера при виборі */
+.topic-label input:checked {
+    background-color: #2768C9; /* Синій фон для вибраного контейнера */
+    border-color: #2768C9; /* Зміна кольору рамки */
+}
+  
+/* Повернення до попереднього стану */
+.topic-label input:not(:checked) + label {
+    transition: background-color 0.3s ease, color 0.3s ease; /* Додаємо плавність повернення кольору */
+}
+
+
+/* Ефект при наведенні */
+.topic-label:hover {
+    background-color: #f2f2f2; /* Легкий сірий фон */
+    border-color: #000000; /* Зміна кольору рамки */
+    color: #000000;
+}
+
+.form p {
+    font-family: 'Roboto', sans-serif;
+    color: #232121;
+
+}
+  
+.send-btn {
+    padding: 10px 20px;
+    background-color: #2768C9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+}
+  
+.send-btn:hover {
+    background-color: #2058a5;
+}
+
+/* Додаємо стиль для скролінгу (для підтримуваних браузерів) */
+.form-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .form-container::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-container::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+  }
+
+/* Адаптація для мобільних пристроїв */
+@media (max-width: 1024px) {
+    .main-section {
+        height: auto; /* Мобільна версія може мати автоматичну висоту */
+    }
+
+    .background-image {
+        background-attachment: scroll; /* Вимикаємо фіксоване фонове зображення на планшетах */
+        width: 110%;
+        height: 110%;
+    }
+
+    .content-wrapper {
+        padding: 0 32px; /* Зменшуємо відступи для планшетів */
+    }
+
+    h1 {
+        font-size: 32px; /* Зменшуємо розмір заголовка для планшетів */
+        margin-top: 40px; /* Зменшуємо верхній відступ */
+    }
+
+    .main-text {
+        font-size: 18px; /* Зменшуємо розмір тексту */
+        max-width: 90%; /* Забираємо максимальну ширину, щоб текст виглядав гармонійно */
+    }
+
+    .contact-btn {
+        position: static; /* Вимикаємо абсолютне позиціонування на планшетах */
+        margin-bottom: 20px; /* Додаємо відступ зверху для кнопки */
+        width: 25%; /* Ширина кнопки на весь екран */
+        height: 50px;
+        border-radius: 25px; /* Зменшуємо радіус */
+    }
+
+    .big-section {
+        height: 480px;
+    }
+    .header-container {
+        padding-left: 24px;
+        padding-top: 24px;
+    }
+    .section-title {
+        font-size: 28px;
+    }
+    .section-text {
+        width: 500px;
+        margin-left: 24px;
+    }
+
+    .truck-image {
+        width: 300px;
+        height: 294px;
+        right: 80px;
+        bottom: 40px;
+    }
+
+
+    .footer-columns {
+        gap: 16px;
+    }
+
+    .footer-column {
+        flex: 1 1 45%; /* Колонки займають 45% ширини */
+    }
+
+    .footer-nav-link {
+        font-size: 16px;
+    }
+
+    .contact-header,
+    .contact-item,
+    .work-hours-header,
+    .work-hours,
+    .address-header,
+    .address {
+        font-size: 14px;
+    }
+
+    .image-container {
+        width: 340px; /* Зменшуємо контейнер в два рази */
+        height: 210px; /* Зменшуємо висоту контейнера в два рази */
+        right: -32px; /* Зменшуємо зміщення праворуч */
+        top: 50%; /* Залишаємо вертикальне вирівнювання по центру */
+        transform: translateY(-50%);
+    }
+
+    .blue-rectangle {
+        width: 340px; /* Зменшуємо ширину прямокутника в два рази */
+        height: 210px; /* Зменшуємо висоту прямокутника в два рази */
+        left: -8px; /* Зменшуємо зміщення ліворуч */
+    }
+
+    .section-image {
+        width: 340px; /* Зменшуємо ширину зображення в два рази */
+        height: 210px; /* Зменшуємо висоту зображення в два рази */
+    }
+
+    .form-container {
+        width: 80%;
+        padding: 15px;
+    }
+
+    .form-title {
+        font-size: 20px;
+    }
+
+    form label {
+        font-size: 16px;
+    }
+
+    .topic-options {
+        flex-direction: column;
+        gap: 15px; /* Більший відступ між елементами */
+    }
+
+    .send-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+/* Для екранів менше 768px */
+@media (max-width: 768px) {
+    .form-container {
+        width: 95%;
+        height: auto; /* Автовисота для зручності */
+        padding: 10px;
+    }
+
+    .form-title {
+        font-size: 18px;
+    }
+
+    form input, 
+    form textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .topic-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .topic-label {
+        font-size: 14px;
+    }
+
+    .send-btn {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+}
+
+/* Адаптивність для мобільних пристроїв */
+@media (max-width: 768px) {
+    .container {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    #desktop-menu {
+        display: none;
+    }
+
+    nav {
+        display: none; /* Ховаємо навігацію для десктопу */
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .contact-icons,
+    .lang {
+        display: none; /* Ховаємо іконки і мову для економії місця */
+    }
+
+    #mobile-menu {
+        display: none;
+    }
+
+    .main-section {
+        height: auto; /* Мобільна версія може мати автоматичну висоту */
+    }
+
+    .background-image {
+        width: 110%;
+        height: 110%;
+        background-attachment: scroll; 
+        transform: none; /* Скидає масштабування */
+
+    }
+
+    .content-wrapper {
+        padding: 0 24px; /* Зменшуємо відступи для мобільних */
+    }
+
+    h1 {
+        font-size: 28px; /* Зменшуємо розмір заголовка */
+        margin-top: 32px; /* Зменшуємо верхній відступ */
+    }
+
+    .main-text {
+        font-size: 16px; /* Зменшуємо розмір тексту */
+        max-width: 100%; /* Забираємо максимальну ширину */
+    }
+
+    .contact-btn {
+        position: static; /* Вимикаємо абсолютне позиціонування на мобільних */
+        margin-bottom: 20px; /* Додаємо відступ зверху для кнопки */
+        width: 50%; /* Ширина кнопки на весь екран */
+        height: 50px;
+        border-radius: 25px; /* Зменшуємо радіус */
+    }
+
+    .big-section {
+        height: auto; /* Висота секції адаптується до вмісту */
+        padding-bottom: 32px; /* Додає відступи внизу */
+    }
+
+    .header-container {
+        padding-left: 16px;
+        padding-top: 16px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+    }
+
+    .section-text {
+        width: auto; /* Робить текстову секцію гнучкою */
+        margin-left: 16px; /* Додає відступи зліва */
+        margin-right: 16px; /* Додає відступи справа */
+        font-size: 14px; /* Зменшує розмір шрифту для кращої читабельності */
+    }
+
+    .truck-image {        
+        position: static; /* Робить зображення частиною потоку документа */
+        margin: 16px auto 0 auto; /* Центрує зображення */
+        display: block; /* Гарантує, що воно займатиме свій рядок */
+        width: 200px; /* Зменшує розмір зображення */
+        height: auto; /* Зберігає пропорції */
+    }
+
+    .services-container {
+        flex-direction: column; /* Вертикальне розташування елементів */
+        padding: 0 32px; /* Зменшені бокові відступи */
+        gap: 16px; /* Простір між елементами */
+        margin-bottom: 64px;
+    }
+
+    .service-box {
+        width: 100%; /* Контейнери займають всю доступну ширину */
+        height: auto; /* Висота підлаштовується під текст */
+        padding: 16px; /* Зменшені відступи */
+    }
+
+    .service-text {
+        font-size: 16px; /* Зменшений шрифт для кращої читабельності */
+    }
+
+    .service-icon {
+        width: 56px;
+        height: auto; /* Пропорційна висота */
+        margin-bottom: 16px;
+    }
+
+    .small-section {
+        flex-direction: column; /* Вертикальне розташування елементів */
+        height: auto; /* Автоматична висота */
+        padding: 16px 24px; /* Зменшені відступи */
+    }
+
+    .section-2 {
+        gap: 16px; /* Відстань між статистичними блоками */
+        display: flex;
+        flex-direction: column; /* Всі елементи вертикально */
+        align-items: center; /* Центрування елементів */
+    }
+
+    .statistic {
+        padding: 8px 0; /* Додатковий простір між елементами */
+        width: 100%; /* Займає весь доступний простір */
+        text-align: center; /* Центрування тексту */
+    }
+
+    .statistic-left,
+    .statistic-right {
+        align-self: center; /* Примусово центруємо блоки */
+        padding-top: 0; /* Прибираємо зайві відступи */
+    }
+
+    .statistic-top {
+        font-size: 20px; /* Зменшений шрифт */
+    }
+
+    .statistic-bottom {
+        font-size: 14px;
+    }
+
+    .section-3 {
+        padding: 12px 24px;
+    }
+
+    .address-title {
+        font-size: 24px; /* Менший заголовок */
+    }
+
+    .address-text {
+        font-size: 14px; /* Менший текст */
+    }
+
+    .footer {
+        height: auto;
+    }
+
+    .footer-columns {
+        flex-direction: column; /* Вертикальне розташування */
+        align-items: center; /* Центрування колонок */
+        gap: 24px;
+    }
+
+    .footer-column {
+        width: 100%; /* Колонки займають всю ширину */
+        align-items: center; /* Центрування тексту */
+        text-align: center;
+    }
+
+    .footer-nav-link {
+        font-size: 14px;
+    }
+
+    .contact-header,
+    .contact-item,
+    .work-hours-header,
+    .work-hours,
+    .address-header,
+    .address {
+        font-size: 12px;
+    }
+
+    .address {
+        font-size: 12px;
+        padding-bottom: 24px;
+    }
+
+    .footer-logo .logo-top {
+        font-size: 18px; /* Менший розмір тексту */
+    }
+
+    .footer-logo .logo-bottom {
+        font-size: 20px;
+    }
+
+    .footer-text {
+        font-size: 12px; /* Зменшений розмір тексту */
+    }
+
+    .image-container {
+        position: relative; /* Позиціюємо контейнер відносно тексту */
+        top: auto; /* Прибираємо вертикальне центрування */
+        left: 0; /* Залишаємо по лівому краю */
+        width: 100%; /* Задаємо ширину 100% */
+        height: auto; /* Висота автоматична для адаптації */
+        margin-top: 30px; /* Відступ зверху для зміщення після тексту */
+        transform: none; /* Вимикаємо трансформації */
+    }
+
+    .blue-rectangle {
+        position: absolute;
+        width: 100%; /* Розтягуємо прямокутник на всю ширину */
+        height: auto; /* Автоматична висота */
+        top: 0; /* Тепер прямокутник вгорі всередині контейнера */
+        left: 0; /* Вирівнюємо по лівому краю */
+    }
+
+    .section-image {
+        width: 100%; /* Розтягуємо зображення на всю ширину контейнера */
+        height: auto; /* Висота автоматична для пропорційного масштабування */
+    }
+
+    .columns-container {
+        flex-direction: column; /* Розміщення колонок вертикально */
+        width: 100%; /* Ширина контейнера на весь екран */
+        margin: 0; /* Прибираємо відступи */
+    }
+
+    .column {
+        max-width: 100%; /* Колонки займають 100% ширини */
+        margin-bottom: 20px; /* Відступи між колонками */
+    }
+
+    .values-title {
+        font-size: 20px; /* Зменшуємо розмір шрифта заголовка */
+    }
+
+    .block-light {
+        height: auto; /* Автоматична висота для адаптації */
+        padding: 20px 0; /* Додаємо відступи для більшого простору */
+    }
+
+    .triangle-image,
+    .white-box {
+        display: none; /* Сховати зображення */
+    }
+
+    .big-section--triangle::after {
+        border-width: 0 200px 200px 0; /* Зменшити розмір білого трикутника */
+    }
+
+    .big-section--triangle::before {
+        border-width: 0 180px 180px 0; /* Зменшити розмір синього трикутника */
+    }
+
+    .form-container {
+        width: 95%;
+        height: auto; /* Автовисота для зручності */
+        padding: 10px;
+    }
+
+    .form-title {
+        font-size: 18px;
+    }
+
+    form input, 
+    form textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .topic-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .topic-label {
+        font-size: 14px;
+    }
+
+    .send-btn {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .main-section {
+        padding: 20px 0; /* Додаємо відступи з боків для мобільних */
+    }
+
+    .background-image {
+        width: 110%;
+        height: 110%;
+        background-attachment: scroll; 
+        transform: none; /* Скидає масштабування */
+    }
+
+    h1 {
+        font-size: 24px; /* Зменшуємо розмір заголовка ще більше */
+        margin-top: 24px;
+    }
+
+    .main-text {
+        font-size: 14px; /* Зменшуємо розмір тексту для малих екранів */
+    }
+
+    .contact-btn {
+        width: 100%; /* Ширина кнопки на весь екран */
+    }
+
+    .big-section {
+        height: auto; /* Дозволяє секції автоматично розширюватися */
+        padding-bottom: 16px; /* Додає відступи внизу */
+    }
+
+    .header-container {
+        padding-left: 8px;
+        padding-top: 8px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .section-text {
+        width: auto; /* Робить текстову секцію адаптивною */
+        margin-left: 8px;
+        margin-right: 8px;
+        font-size: 14px;
+    }
+
+    .truck-image {        
+        position: static; /* Робить зображення частиною потоку документа */
+        margin: 16px auto 0 auto; /* Центрує зображення */
+        display: block; /* Гарантує, що воно займатиме свій рядок */
+        width: 200px; /* Зменшує розмір зображення */
+        height: auto; /* Зберігає пропорції */
+    }
+
+    .services-container {
+        flex-direction: column; /* Вертикальне розташування елементів */
+        padding: 0 16px; /* Мінімальні бокові відступи */
+        gap: 12px; /* Відступ між контейнерами */
+    }
+
+    .service-box {
+        width: 100%; /* Контейнери на всю ширину */
+        height: auto; /* Автоматична висота */
+        padding: 12px; /* Зменшені відступи */
+    }
+
+    .service-text {
+        font-size: 14px; /* Зменшений розмір шрифту */
+    }
+
+    .service-icon {
+        width: 48px; /* Менший розмір іконки */
+        height: auto;
+        margin-bottom: 12px;
+    }
+
+    .small-section {
+        padding: 12px 16px; /* Мінімальні відступи */
+    }
+
+    .section-2 {
+        flex-direction: column; /* Вертикальне розташування */
+        align-items: center; /* Центрування елементів */
+        gap: 12px; /* Відстань між елементами */
+    }
+
+    .statistic {
+        width: 100%; /* Статистика займає всю ширину */
+        text-align: center;
+    }
+
+    .statistic-top {
+        font-size: 18px; /* Зменшений шрифт */
+    }
+
+    .statistic-bottom {
+        font-size: 12px; /* Зменшений шрифт для нижнього тексту */
+    }
+
+    .section-3 {
+        padding: 8px 16px;
+    }
+
+    .address-title {
+        font-size: 20px; /* Менший заголовок */
+    }
+
+    .address-text {
+        font-size: 12px; /* Зменшений текст */
+    }
+
+    .columns-container {
+        padding: 0 10px; /* Додаємо трохи відступів з боків */
+    }
+
+    .column {
+        max-width: 100%; /* Колонки займають 100% ширини */
+        margin-bottom: 15px; /* Зменшуємо відступи між колонками */
+    }
+
+    .values-title {
+        font-size: 18px; /* Додаткове зменшення розміру шрифта заголовка */
+    }
+
+    .column-icon {
+        width: 48px; /* Зменшуємо іконки для малих екранів */
+        height: 48px;
+    }
+
+    .block-light {
+        height: auto; /* Автоматична висота для адаптації */
+        padding: 15px 0; /* Зменшуємо відступи для компактнішого вигляду */
+    }
+
+    .form-container {
+        width: 100%;
+        padding: 5px;
+        border-radius: 0; /* Прибираємо заокруглення для мобільного вигляду */
+    }
+
+    .form-title {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    form label {
+        font-size: 14px;
+    }
+
+    form input, 
+    form textarea {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .topic-options {
+        gap: 8px;
+    }
+
+    .topic-label {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .send-btn {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+}
+
