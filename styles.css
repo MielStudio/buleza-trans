@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 
 * {
     margin: 0;
@@ -12,7 +14,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #fff;
     background-color: #000;
 }
@@ -29,6 +31,7 @@ header {
     width: 100%;
     border-bottom: 3px solid #2768C9;
     display: flex;
+    font-family: 'Montserrat', sans-serif;
     align-items: center;
     justify-content: center;
     position: relative;
@@ -54,7 +57,7 @@ header.hidden {
     justify-content: space-between;
     max-width: 1200px;
     width: 100%;
-    padding: 0 20px;
+    padding: 0 32px;
 }
 
 .logo {
@@ -458,6 +461,7 @@ h1 {
     background-color: #3F3F3F; /* Колір фону */
     position: relative; /* Для правильного розташування */
     z-index: 1; /* Щоб секції були над іншими елементами */
+    display: flex; /* Явно задаємо flex, не покладаючись на дочірні класи */
     align-items: center; /* Центрування по вертикалі */
     padding: 0 48px; /* Відступи зліва і справа */   
 }
@@ -524,9 +528,10 @@ h1 {
     position: relative;
     top: 72px; /* Відступ вниз від заголовка */
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    padding: 0 144px; /* Відступи з боків */
+    gap: 48px; /* Відстань між картками */
+    padding: 0 48px; /* Відступи з боків, як в інших секціях */
     opacity: 0;
     transform: translateY(20px); /* Зсуваємо контейнер вниз */
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
@@ -919,7 +924,7 @@ h1 {
     font-weight: bold;
     position: absolute;
     bottom: 12px; /* Відстань від нижнього краю футера */
-    left: 48px; /* Відстань від лівого краю футера */
+    left: max(48px, calc(50% - 600px + 48px)); /* Вирівнюємо з лівим краєм колонок футера (max-width: 1200px) */
 }
 
 /* Мобільне меню за замовчуванням приховане */
@@ -1279,6 +1284,7 @@ form textarea {
     .container {
         flex-wrap: wrap;
         justify-content: space-between;
+        padding: 0 16px;
     }
 
     #desktop-menu {
